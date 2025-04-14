@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import Button from "./Button";
 import { TiLocationArrow } from "react-icons/ti";
 import { useGSAP } from "@gsap/react";
@@ -9,6 +9,8 @@ gsap.registerPlugin(ScrollTrigger);
 
 const Hero = () => {
   const [isLoading, setIsLoading] = useState(true);
+  const [videoInView, setVideoInView] = useState(false);
+  const videoRef = useRef(null);
 
   const handleVideoLoad = () => {
     setIsLoading(false);
@@ -33,6 +35,26 @@ const Hero = () => {
     });
   }, []);
 
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setVideoInView(true);
+            observer.disconnect();
+          }
+        });
+      },
+      { threshold: 0.25 }
+    );
+
+    if (videoRef.current) {
+      observer.observe(videoRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <div className="relative h-dvh w-screen overflow-x-hidden">
       {isLoading && (
@@ -47,17 +69,27 @@ const Hero = () => {
 
       <div
         id="video-frame"
+        ref={videoRef}
         className="relative z-10 h-dvh w-screen overflow-hidden rounded-lg bg-blue-75"
       >
         <div>
-          <video
-            src="videos/hero.mp4"
-            autoPlay
-            loop
-            muted
-            onLoadedData={handleVideoLoad}
-            className="absolute left-0 top-0 size-full object-cover object-center"
-          />
+          {videoInView ? (
+            <video
+              src="videos/hero.mp4"
+              autoPlay
+              loop
+              muted
+              onLoadedData={handleVideoLoad}
+              className="absolute left-0 top-0 size-full object-cover object-center"
+            />
+          ) : (
+            // Optional placeholder image while the video is not in view.
+            <img
+              src="images/video-placeholder.jpg"
+              alt="Video placeholder"
+              className="absolute left-0 top-0 size-full object-cover object-center"
+            />
+          )}
         </div>
 
         <h1 className="special-font hero-heading absolute bottom-5 right-5 z-40 text-blue-75">
