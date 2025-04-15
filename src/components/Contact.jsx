@@ -31,7 +31,7 @@ const Contact = () => {
           </p>
 
           <AnimatedTitle
-            title="le&#39;t&#39;s b<b>u</b>ild the <br /> next gen of <br /> antiher<b>o</b>es t<b>o</b>gether."
+            title="let&#39;s b<b>u</b>ild the <br /> next gen of <br /> antiher<b>o</b>es t<b>o</b>gether"
             className="special-font !md:text-[6.2rem] w-full font-zentry !text-5xl !font-black !leading-[.9]"
           />
 

@@ -59,10 +59,9 @@ const Hero = () => {
     <div className="relative h-dvh w-screen overflow-x-hidden">
       {isLoading && (
         <div className="flex-center absolute z-[100] h-dvh w-screen overflow-hidden bg-violet-50">
-          <div className="three-body">
-            <div className="three-body__dot"></div>
-            <div className="three-body__dot"></div>
-            <div className="three-body__dot"></div>
+          <div className="deadpool-spinner">
+            <div className="eye left"></div>
+            <div className="eye right"></div>
           </div>
         </div>
       )}
@@ -83,7 +82,6 @@ const Hero = () => {
               className="absolute left-0 top-0 size-full object-cover object-center"
             />
           ) : (
-            // Optional placeholder image while the video is not in view.
             <img
               src="images/video-placeholder.jpg"
               alt="Video placeholder"

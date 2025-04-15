@@ -124,6 +124,7 @@ const Features = () => {
               }
             />
           </BentoTilt>
+          
         </div>
       </div>
     </section>
