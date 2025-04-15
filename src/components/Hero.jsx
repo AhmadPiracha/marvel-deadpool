@@ -8,10 +8,13 @@ import gsap from "gsap";
 gsap.registerPlugin(ScrollTrigger);
 
 const Hero = () => {
+  const [isLoading, setIsLoading] = useState(true);
   const [videoInView, setVideoInView] = useState(false);
   const videoRef = useRef(null);
 
-
+  const handleVideoLoad = () => {
+    setIsLoading(false);
+  };
 
   useGSAP(() => {
     gsap.set("#video-frame", {
@@ -54,6 +57,14 @@ const Hero = () => {
 
   return (
     <div className="relative h-dvh w-screen overflow-x-hidden">
+      {isLoading && (
+        <div className="flex-center absolute z-[100] h-dvh w-screen overflow-hidden bg-violet-50">
+          <div className="deadpool-spinner">
+            <div className="eye left"></div>
+            <div className="eye right"></div>
+          </div>
+        </div>
+      )}
 
       <div
         id="video-frame"
@@ -67,6 +78,7 @@ const Hero = () => {
               autoPlay
               loop
               muted
+              onLoadedData={handleVideoLoad}
               className="absolute left-0 top-0 size-full object-cover object-center"
             />
           ) : (
