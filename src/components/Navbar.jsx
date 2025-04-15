@@ -18,25 +18,32 @@ const Navbar = () => {
   const { y: currentScrollY } = useWindowScroll();
 
   useEffect(() => {
+    const nav = navContainerRef.current;
+
+    if (!nav) return;
+
+    const floatingClass = "floating-nav";
+
     if (currentScrollY === 0) {
       setIsNavVisible(true);
-      navContainerRef.current.classList.remove("floating-nav");
+      nav.classList.remove(floatingClass);
     } else if (currentScrollY > lastScrollY) {
       setIsNavVisible(false);
-      navContainerRef.current.classList.add("floating-nav");
-    } else if (currentScrollY < lastScrollY) {
+      nav.classList.add(floatingClass);
+    } else {
       setIsNavVisible(true);
-      navContainerRef.current.classList.add("floating-nav");
+      nav.classList.add(floatingClass);
     }
+
     setLastScrollY(currentScrollY);
   }, [currentScrollY, lastScrollY]);
 
   useEffect(() => {
     gsap.to(navContainerRef.current, {
-        y: isNavVisible ? 0 : -100,
-        opacity: isNavVisible ? 1 : 0,
-        duration: 0.2,
-    })
+      y: isNavVisible ? 0 : -100,
+      opacity: isNavVisible ? 1 : 0,
+      duration: 0.2,
+    });
   }, [isNavVisible]);
 
   const toggleAudioIndicator = () => {
@@ -59,13 +66,20 @@ const Navbar = () => {
       <header className="absolute top-1/2 w-full -translate-y-1/2">
         <nav className="flex size-full items-center justify-between p-4">
           <div className="flex items-center gap-7">
-            <img src="/img/logo.png" alt="logo" className="w-10" />
-            <Button
-              id="product-button"
-              title="Products"
-              rightIcon={<TiLocationArrow />}
-              containerClass="bg-blue-50 md:flex hidden items-center justify-center gap-1"
-            />
+            <a href="/#home" rel="noopener noreferrer">
+              <img src="/img/logo.png" alt="logo" className="w-10" />
+            </a>
+            <a
+              href="https://www.youtube.com/watch?v=VHAK-gU9gi0&t=15s&ab_channel=JoBloMovieClips"
+              target="_blank"
+            >
+              <Button
+                id="product-button"
+                title="Products"
+                rightIcon={<TiLocationArrow />}
+                containerClass="bg-blue-50 md:flex hidden items-center justify-center gap-1"
+              />
+            </a>
           </div>
           <div className="flex h-full items-center">
             <div className="hidden md:block">
@@ -95,7 +109,6 @@ const Navbar = () => {
                   className={`indicator-line ${
                     isIndicatorActive ? "active" : ""
                   }`}
-                  style={{ animationDelay: `${bar * 0.1}s` }}
                 />
               ))}
             </button>

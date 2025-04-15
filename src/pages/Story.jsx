@@ -1,9 +1,9 @@
 import { useRef } from "react";
 import gsap from "gsap";
 
-import AnimatedTitle from "./AnimatedTitle";
-import RoundedCorners from "./RoundedCorners";
-import Button from "./Button";
+import AnimatedTitle from "../components/AnimatedTitle";
+import RoundedCorners from "../components/RoundedCorners";
+import Button from "../components/Button";
 
 const Story = () => {
   const frameRef = useRef("");

@@ -4,6 +4,10 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   width: 100dvw;
   overflow-x: hidden;
@@ -191,6 +195,23 @@ body {
 
 .deadpool-spinner .right {
   right: 20%;
+}
+
+.form-label {
+  font-family: "robert-medium", sans-serif;
+}
+
+button[type="submit"]:hover {
+  transform: scale(1.15);
+  box-shadow: 0 0 15px rgba(255, 0, 0, 0.8);
+}
+
+input:focus, textarea:focus {
+  box-shadow: 0 0 10px rgba(255, 0, 0, 0.6);
+}
+
+.font-zentry {
+  font-family: "zentry", sans-serif;
 }
 
 @keyframes spin {
